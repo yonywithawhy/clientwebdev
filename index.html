@@ -3,8 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>yonywithawhy</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script type="text/javascript" src="clientsapp.js"></script>
+    <link rel="stylesheet" href="clientsapp.css"/>
 </head>
-<body>
-    <h1>client web dev</h1>
+<body ng-app="ClientsApp">
+    <div id="clientApp" ng-controller="ClientController as clients">
+        <h1>Client Work for <a href="https://www.github.com/yonywithawhy">yonywithawhy</a></h1>
+        <div id="clients">
+            <div ng-repeat="client in clients.list" class="client">
+                <div class="client-name">
+                    {{client.name}}
+                </div>
+                <div class="projects">
+                    <div ng-repeat="project in client.projects">
+                        <div class="project" ng-click='clients.goTo(project.path)'>
+                            <i class="fa fa-bicycle fa-4x"></i><br/>
+                            {{project.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
