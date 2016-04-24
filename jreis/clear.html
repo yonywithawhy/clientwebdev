@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASL Clear</title>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>-->
+    <script type="text/javascript" src="offline/angular.1.3.5.js"></script>
+    <script type="text/javascript" src="clear.js"></script>
+    <link type="text/css" rel="stylesheet" href="offline/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="clear.css" />
+</head>
+<body ng-app="Clear" ng-controller="SearchCtrl">
+    <div id="search-container" class="container" ng-cloak>
+        <ul>
+            <li id="cancel"><i class="fa fa-fire-extinguisher fa-2x"></i></li>
+            <li id="h2" ng-class="{disabled: !isSelected.handshape1 }">
+                <div class="topic">
+                   Default
+                </div>
+                <ul>
+                    <li ng-repeat="handshape in handshapes">
+                        {{handshape.path}}
+                        <ul>
+                            <li>{{handshape.id}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="h1" class="clickable">
+                <div class="topic" ng-click="clearSelection('handshape1')">
+                    <img ng-src="{{iconOnDisplay.handshape1}}" width="100" height="100" ng-hide="isShowingOverlay('handshape1')"/>
+                    <!-- TODO make the overlay work -->
+                    <img ng-src="{{overlay}}" width="100" height="100" ng-show="isShowingOverlay('handshape1')"/>
+                </div>
+                <ul>
+                    <li ng-repeat="handshape in handshapes"
+                        ng-mouseenter="setPreviewIcon('handshape1',$index)"
+                        ng-mouseleave="setPreviewIcon('handshape1',-1)"
+                        ng-click="setPreviewIcon('handshape1',$index,true)"
+                        >
+                        <img ng-src="{{handshape.path}}"/>
+                        <ul>
+                            <li><img ng-src="{{handshapes[handshape.parent_id].glyph}}" width="100" height="100"/></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="loc" class="clickable">
+                <div class="topic">Default</div>
+                <ul>
+                    <li ng-repeat="location in locations">
+                        {{location.path}}
+                        <ul>
+                            <li>{{location.id}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="m1" class="clickable">
+                <div class="topic">Default</div>
+                <ul>
+                    <li ng-repeat="movement in movements">
+                        {{movement.path}}
+                        <ul>
+                            <li>{{movement.id}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="m2" class="disabled">
+                <div class="topic">Default</div>
+                <ul>
+                    <li ng-repeat="movement in movements">
+                        {{movement.path}}
+                        <ul>
+                            <li>{{movement.id}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="help"><i class="fa fa-question fa-2x"></i></li>
+        </ul>
+    </div>
+    <div id="resultsContainer" class="container">
+        {{iconSelected}}
+    </div>
+</body>
+</html>

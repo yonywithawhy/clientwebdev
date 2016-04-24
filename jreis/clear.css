@@ -1,0 +1,95 @@
+/*
+* Container
+*/
+#search-container {
+    width:800px;
+    margin: 0 auto;
+    padding:10px;
+}
+
+/*
+* Gridded Menu, emulating table "border-collapse"
+*/
+ul {
+    /* Overwrite default and tighten everything up */
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+li {
+    /* TODO: clarify why we need these */
+    float:left;
+    display: inline;
+    position: relative;
+
+    /* Set standard size for each box */
+    width:100px;
+    height:100px;
+
+    border:1px solid gray;
+}
+li:hover {
+    cursor: pointer;
+}
+
+/* Header Icons */
+ul li {
+    /* "border-collapse" */
+    margin-right:-1px;
+}
+
+/* Target the first drop down list */
+ul ul {
+    position: absolute;
+
+    /* Clear the header icon */
+    top:100px;
+
+    /* "border-collapse" - align with header icon */
+    left:-1px;
+
+    /* Hide by default */
+    display: none;
+}
+
+/* Show the second "drop down" list to the right on hover */
+li:hover > ul {
+    display: block;
+}
+ul ul li:not(:first-of-type) {
+    /* "border-collapse" - prevent vertical overlap in first drop down */
+    margin-top: -1px;
+}
+ul ul ul {
+    /* Clear the first list item */
+    left: 100%;
+
+    /* "border-collapse" */
+    top : -1px;
+
+}
+
+/* Side Buttons */
+#cancel, #help {
+    line-height: 100px;
+    width: 40px;
+    text-align: center;
+    color:lightgray;
+    display: block;
+}
+#cancel:hover, #help:hover {
+    color:black;
+}
+
+/* State */
+li.disabled div.topic {
+    /* handle this somehow */
+}
+
+/* Utility */
+.hidden {
+    display:none;
+}
+.disabled {
+    /* color gray */
+}
