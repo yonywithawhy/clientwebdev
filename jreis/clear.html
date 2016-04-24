@@ -12,7 +12,7 @@
 <body ng-app="Clear" ng-controller="SearchCtrl">
     <div id="search-container" class="container" ng-cloak>
         <ul>
-            <li id="cancel"><i class="fa fa-fire-extinguisher fa-2x"></i></li>
+            <li id="help" ng-click="clearAll()"><i class="fa fa-question fa-2x"></i></li>
             <li id="h2" ng-class="{disabled: !isSelected.handshape1 }">
                 <div class="topic">
                    Default
@@ -26,17 +26,24 @@
                     </li>
                 </ul>
             </li>
-            <li id="h1" class="clickable">
-                <div class="topic" ng-click="clearSelection('handshape1')">
-                    <img ng-src="{{iconOnDisplay.handshape1}}" width="100" height="100" ng-hide="isShowingOverlay('handshape1')"/>
+            <li id="h1" class="clickable" ng-init="parameter = 'handshape1'">
+                <div class="topic"
+                     ng-click="clearSelection(parameter)"
+                     ng-mouseenter="showOverlay(parameter)"
+                     ng-mouseleave="hideOverlay(parameter)"
+                        >
+                    <img ng-src="{{imageToDisplay(parameter)}}"
+                         ng-class="{behind: isShowingOverlay(parameter)}"
+                         width="100" height="100"
+                         />
                     <!-- TODO make the overlay work -->
-                    <img ng-src="{{overlay}}" width="100" height="100" ng-show="isShowingOverlay('handshape1')"/>
+                    <div class="overlay" ng-show="isShowingOverlay(parameter)">x</div>
                 </div>
                 <ul>
                     <li ng-repeat="handshape in handshapes"
-                        ng-mouseenter="setPreviewIcon('handshape1',$index)"
-                        ng-mouseleave="setPreviewIcon('handshape1',-1)"
-                        ng-click="setPreviewIcon('handshape1',$index,true)"
+                        ng-mouseenter="setPreviewIcon(parameter,$index)"
+                        ng-mouseleave="setPreviewIcon(parameter,-1)"
+                        ng-click="setPreviewIcon(parameter,$index,1)"
                         >
                         <img ng-src="{{handshape.path}}"/>
                         <ul>
@@ -78,11 +85,12 @@
                     </li>
                 </ul>
             </li>
-            <li id="help"><i class="fa fa-question fa-2x"></i></li>
+            <li id="clear-all"><i class="fa fa-times fa-2x"></i></li>
         </ul>
     </div>
     <div id="resultsContainer" class="container">
-        {{iconSelected}}
+        <p>Selection: {{iconSelected}}</p>
+        <p>Preview: {{iconOnDisplay}} </p>
     </div>
 </body>
 </html>

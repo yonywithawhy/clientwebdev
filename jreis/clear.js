@@ -1,6 +1,9 @@
 (function(){
     var Clear = angular.module("Clear",[]);
     Clear.controller("SearchCtrl",function($scope){
+        /* Always true */
+        $scope.parameters = ['handshape2','handshape1','location','movement1','movement2'];
+
         /* Data from Server */
         $scope.preview = {
             handshape1: "images/preview_handshapes.png",
@@ -25,19 +28,22 @@
 
         /* State */
         $scope.iconSelected  = {
-            handshape1: $scope.preview.handshape1,
-            handshape2: $scope.preview.handshape1
+            handshape1: {},
+            handshape2: {}
         };
         $scope.iconOnDisplay = {
             handshape1: $scope.iconSelected.handshape1,
             handshape2: $scope.iconSelected.handshape2
         };
-        $scope.isSelected = {
+
+        $scope.showingOverlay = {
             handshape1: false
         };
-        $scope.isShowingOverlay = {
-            handshape1: false
-        }
+        $scope.isShowingOverlay = function(parameter) {
+            if (typeof parameter !== "undefined"){
+               return $scope.showingOverlay[parameter];
+            }
+        };
 
         /* Mutator Functions */
         $scope.setPreviewIcon = function(parameter, index, isClick) {
@@ -51,18 +57,18 @@
                 // TODO: handle more than one parameter, not just handshape1
 
                 if (index < 0 || typeof index === "undefined") {
-                    updateValue = $scope.iconSelected.handshape1;
+                    updateValue = $scope.iconSelected[parameter];
                 } else {
-                    // Set the
-                    updateValue = $scope.handshapes[index].path;
+                    // Get the path for the given handshape
+                    // TODO refactor this for other parameters
+                    updateValue = $scope.handshapes[index];
 
                     // If it was a click then we want the preview icon to revert to
                     // our clicked selection on mouseleave rather than the default
                     if (triggeredByClickRatherThanHover) {
                         $scope.iconSelected[parameter] = updateValue;
 
-                        // Show handshape2 when handshape1 is a valid selection (i.e. not the preview)
-                        $scope.isSelected[parameter] = (updateValue !== $scope.preview[parameter])
+                        // TODO Show handshape2 when handshape1 is a valid selection (i.e. not the preview)
                     }
                 }
                 $scope.iconOnDisplay[parameter] = updateValue;
@@ -71,15 +77,50 @@
 
         $scope.clearSelection = function(parameter) {
             if(typeof parameter !== "undefined") {
-                $scope.iconSelected[parameter] = $scope.preview[parameter];
-                $scope.iconOnDisplay[parameter] = $scope.preview[parameter];
+                $scope.iconSelected[parameter] = {};
+                $scope.iconOnDisplay[parameter] = {};
+                $scope.hideOverlay(parameter);
+            }
+        };
+        $scope.clearAll = function() {
+            var index;
+            var parameter;
+
+            for (index in $scope.parameters) {
+                parameter = $scope.parameters[index];
+                $scope.clearSelection(parameter);
             }
         };
 
-        $scope.showOrHideOverlay = function(parameter,state) {
-            if (typeof parameter !== "undefined" && !!state ){
-                $scope.isShowingOverlay[parameter] = state;
+        $scope.imageToDisplay = function(parameter) {
+            var imagePath = "";
+            if(typeof parameter !== "undefined") {
+                if ( !isObjectEmpty($scope.iconOnDisplay[parameter]) && $scope.iconOnDisplay[parameter] ){
+                    imagePath = $scope.iconSelected[parameter].path; //iconOnDisplay
+                } else {
+                    imagePath = $scope.preview[parameter]; // and what if that doesn't exist?
+                }
+                return imagePath;
             }
+        };
+
+
+        $scope.hideOverlay = function(parameter) {
+            if ($scope.showingOverlay.hasOwnProperty(parameter) ){
+                $scope.showingOverlay[parameter] = false;
+            }
+        };
+
+        $scope.showOverlay = function(parameter) {
+            if ($scope.iconOnDisplay.hasOwnProperty(parameter)){
+                // If we haven't selected anything then never show the overlay
+                $scope.showingOverlay[parameter] = isObjectEmpty($scope.iconOnDisplay[parameter]) ? false : true;
+            }
+        };
+
+        /* Utility Functions */
+        function isObjectEmpty(obj) {
+            return JSON.stringify(obj) === JSON.stringify({});
         }
     });
 })();
