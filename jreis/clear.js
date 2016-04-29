@@ -9,9 +9,23 @@
 
         /* Data from Server */
         $scope.preview    = ParametersAPI.preview;
+        $scope.handshapeGlyphs = ParametersAPI.handshapeGlyphs;
         $scope.handshapes = ParametersAPI.handshapes;
         $scope.movements  = ParametersAPI.movements;
         $scope.locations  = ParametersAPI.locations;
+
+        $scope.handshapesForGlyphId = function(id) {
+            var idAsNumber = id * 1; // convert String to Number
+            var shapes = [];
+            if (!isNaN(idAsNumber) && idAsNumber >= 0 && idAsNumber < $scope.handshapeGlyphs.length) {
+                for (var i in $scope.handshapes){
+                    if ($scope.handshapes[i].hasOwnProperty("glyph") && $scope.handshapes[i].glyph === id) {
+                        shapes.push($scope.handshapes[i]);
+                    }
+                }
+            }
+            return shapes;
+        };
 
         /* State */
         $scope.iconSelected  = SelectionState.selection; // TODO make this work 2 ways
@@ -47,18 +61,30 @@
             if(typeof parameter !== "undefined") {
                 var updateValue;
                 var triggeredByClickRatherThanHover;
+                var parameter = parameter.toLowerCase();
 
                 // Handle undefined
                 triggeredByClickRatherThanHover = !!isClick;
 
-                // TODO: handle more than one parameter, not just handshape1
-
                 if (index < 0 || typeof index === "undefined") {
                     updateValue = $scope.iconSelected[parameter];
                 } else {
-                    // Get the path for the given handshape
-                    // TODO refactor this for other parameters
-                    updateValue = $scope.handshapes[index];
+                    // Get the object containing the image path for the given parameter
+                    switch (parameter) {
+                        case "handshape1":
+                        case "handshape2":
+                            updateValue = $scope.handshapes[index];
+                            break;
+                        case "location":
+                            updateValue = $scope.locations[index];
+                            break;
+                        case "movement1":
+                        case "movement2":
+                            updateValue = $scope.movements[index];
+                            break;
+                        default:
+                            console.log("Warning, parameter " + parameter + " not found.");
+                    }
 
                     // If it was a click then we want the preview icon to revert to
                     // our clicked selection on mouseleave rather than the default
@@ -68,6 +94,7 @@
                         // TODO Show handshape2 when handshape1 is a valid selection (i.e. not the preview)
                     }
                 }
+
                 $scope.iconOnDisplay[parameter] = updateValue;
             }
         };

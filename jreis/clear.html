@@ -14,76 +14,140 @@
     <div id="search-container" class="container" ng-cloak>
         <ul>
             <li id="help"><i class="fa fa-question fa-2x"></i></li>
-            <li id="h2" ng-class="{disabled: !isSelected.handshape1 }">
-                <div class="topic">
-                   Default
-                </div>
-                <ul>
-                    <li ng-repeat="handshape in handshapes">
-                        {{handshape.path}}
-                        <ul>
-                            <li>{{handshape.id}}</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li id="h1" class="clickable" ng-init="parameter = 'handshape1'">
+            <li id="h2" class="disabled">
                 <div class="topic"
-                     ng-click="clearSelection(parameter)"
-                     ng-mouseenter="showOverlay(parameter)"
-                     ng-mouseleave="hideOverlay(parameter)"
-                     >
-                    <img ng-src="{{imageToDisplay(parameter)}}"
-                         ng-class="{behind: isShowingOverlay(parameter)}"
+                     ng-click="clearSelection('handshape1')"
+                     ng-mouseenter="showOverlay('handshape1')"
+                     ng-mouseleave="hideOverlay('handshape1')"
+                        >
+                    <img ng-src="{{imageToDisplay('handshape1')}}"
+                         ng-class="{behind: isShowingOverlay('handshape1')}"
                          width="100" height="100"
-                         />
-                    <!-- TODO make the overlay work -->
-                    <div class="overlay" ng-show="isShowingOverlay(parameter)">
+                            />
+                    <div class="overlay" ng-show="isShowingOverlay('handshape1')">
                         <i class="fa fa-times"></i>
                     </div>
                 </div>
                 <ul>
-                    <li ng-repeat="handshape in handshapes"
-                        ng-mouseenter="setPreviewIcon(parameter,$index)"
-                        ng-mouseleave="setPreviewIcon(parameter,-1)"
-                        ng-click="setPreviewIcon(parameter,$index,1)"
-                        >
-                        <img ng-src="{{handshape.path}}"/>
+                    <li ng-repeat="glyph in handshapeGlyphs"
+                        ng-mouseenter="setPreviewIcon('handshape1',$index)"
+                        ng-mouseleave="setPreviewIcon('handshape1',-1)"
+                            >
+                        <img ng-src="{{glyph.path}}" width="100" height="100"/>
                         <ul>
-                            <li><img ng-src="{{handshapes[handshape.parent_id].glyph}}" width="100" height="100"/></li>
+                            <li ng-repeat="handshape in handshapesForGlyphId(glyph.id)"
+                                ng-click="setPreviewIcon('handshape1',$index,1)"
+                                >
+                                <img ng-src="{{handshape.path}}" width="100" height="100"/>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li id="h1" class="clickable">
+                <div class="topic"
+                     ng-click="clearSelection('handshape2')"
+                     ng-mouseenter="showOverlay('handshape2')"
+                     ng-mouseleave="hideOverlay('handshape2')"
+                     >
+                    <img ng-src="{{imageToDisplay('handshape2')}}"
+                         ng-class="{behind: isShowingOverlay('handshape2')}"
+                         width="100" height="100"
+                         />
+                    <div class="overlay" ng-show="isShowingOverlay('handshape2')">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <ul>
+                    <li ng-repeat="glyph in handshapes"
+                        ng-mouseenter="setPreviewIcon('handshape2',$index)"
+                        ng-mouseleave="setPreviewIcon('handshape2',-1)"
+                        ng-click="setPreviewIcon('handshape2',$index,1)"
+                        >
+                        <img ng-src="{{glyph.path}}" width="100" height="100"/>
+                        <ul>
+                            <li><img ng-src="{{handshapeGlyphs[handshapes[glyph.parent_id].glyph].path}}" width="100" height="100"/></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li id="loc" class="clickable">
-                <div class="topic">Default</div>
+                <div class="topic"
+                     ng-click="clearSelection('location')"
+                     ng-mouseenter="showOverlay('location')"
+                     ng-mouseleave="hideOverlay('location')"
+                        >
+                    <img ng-src="{{imageToDisplay('location')}}"
+                         ng-class="{behind: isShowingOverlay('location')}"
+                         width="100" height="100"
+                            />
+                    <div class="overlay" ng-show="isShowingOverlay('location')">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
                 <ul>
-                    <li ng-repeat="location in locations">
-                        {{location.path}}
+                    <li ng-repeat="location in locations"
+                        ng-mouseenter="setPreviewIcon('location',$index)"
+                        ng-mouseleave="setPreviewIcon('location',-1)"
+                        ng-click="setPreviewIcon('location',$index,1)"
+                        >
+                        <img ng-src="{{location.path}}" width="100" height="100"/>
                         <ul>
-                            <li>{{location.id}}</li>
+                            <li><p>{{location.video || "No video URL found"}}</p></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li id="m1" class="clickable">
-                <div class="topic">Default</div>
+                <div class="topic"
+                     ng-click="clearSelection('movement1')"
+                     ng-mouseenter="showOverlay('movement1')"
+                     ng-mouseleave="hideOverlay('movement1')"
+                        >
+                    <img ng-src="{{imageToDisplay('movement1')}}"
+                         ng-class="{behind: isShowingOverlay('movement1')}"
+                         width="100" height="100"
+                            />
+                    <div class="overlay" ng-show="isShowingOverlay('movement1')">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
                 <ul>
-                    <li ng-repeat="movement in movements">
-                        {{movement.path}}
+                    <li ng-repeat="movement in movements"
+                        ng-mouseenter="setPreviewIcon('movement1',$index)"
+                        ng-mouseleave="setPreviewIcon('movement1',-1)"
+                        ng-click="setPreviewIcon('movement1',$index,1)"
+                            >
+                        <img ng-src="{{movement.path}}" width="100" height="100"/>
                         <ul>
-                            <li>{{movement.id}}</li>
+                            <li><p>{{movement.video || "No video URL found"}}</p></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li id="m2" class="disabled">
-                <div class="topic">Default</div>
+                <div class="topic"
+                     ng-click="clearSelection('movement2')"
+                     ng-mouseenter="showOverlay('movement2')"
+                     ng-mouseleave="hideOverlay('movement2')"
+                        >
+                    <img ng-src="{{imageToDisplay('movement2')}}"
+                         ng-class="{behind: isShowingOverlay('movement2')}"
+                         width="100" height="100"
+                            />
+                    <div class="overlay" ng-show="isShowingOverlay('movement2')">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
                 <ul>
-                    <li ng-repeat="movement in movements">
-                        {{movement.path}}
+                    <li ng-repeat="movement in movements"
+                        ng-mouseenter="setPreviewIcon('movement2',$index)"
+                        ng-mouseleave="setPreviewIcon('movement2',-1)"
+                        ng-click="setPreviewIcon('movement2',$index,1)"
+                            >
+                        <img ng-src="{{movement.path}}" width="100" height="100"/>
                         <ul>
-                            <li>{{movement.id}}</li>
+                            <li><p>{{movement.video || "No video URL found"}}</p></li>
                         </ul>
                     </li>
                 </ul>
@@ -93,7 +157,6 @@
     </div>
     <div id="resultsContainer" class="container">
         <p>Selection: {{iconSelected}}</p>
-        <p>Preview: {{iconOnDisplay}} </p>
     </div>
 </body>
 </html>
