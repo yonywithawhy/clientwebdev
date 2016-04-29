@@ -13,13 +13,13 @@
 /*
 * Gridded Menu, emulating table "border-collapse"
 */
-ul {
+#search-container ul {
     /* Overwrite default and tighten everything up */
     padding: 0;
     margin: 0;
     list-style-type: none;
 }
-li {
+#search-container li {
     /* TODO: clarify why we need these */
     float:left;
     display: inline;
@@ -31,18 +31,18 @@ li {
 
     border:1px solid gray;
 }
-li:hover {
+#search-container li:hover {
     cursor: pointer;
 }
 
 /* Header Icons */
-ul li {
+#search-container ul li {
     /* "border-collapse" */
     margin-right:-1px;
 }
 
 /* Target the first drop down list */
-ul ul {
+#search-container ul ul {
     position: absolute;
 
     /* Clear the header icon */
@@ -56,14 +56,14 @@ ul ul {
 }
 
 /* Show the second "drop down" list to the right on hover */
-li:hover > ul {
+#search-container li:hover > ul {
     display: block;
 }
-ul ul li:not(:first-of-type) {
+#search-container ul ul li:not(:first-of-type) {
     /* "border-collapse" - prevent vertical overlap in first drop down */
     margin-top: -1px;
 }
-ul ul ul {
+#search-container ul ul ul {
     /* Clear the first list item */
     left: 100%;
 
@@ -73,34 +73,34 @@ ul ul ul {
 }
 
 /* Side Buttons */
-#clear-all, #help {
+#search-container #clear-all, #search-container #help {
     line-height: 100px;
     width: 40px;
     text-align: center;
     display: block;
 }
-#clear-all i, #help i {
+#search-container #clear-all i, #search-container #help i {
     opacity: 0.5;
 }
-#help {
+#search-container #help {
     color:black;
 }
-#clear-all {
+#search-container #clear-all {
     color:rgb(250,130,130);
 }
-#clear-all:hover i, #help:hover i {
+#search-container #clear-all:hover i, #search-container #help:hover i {
     opacity: 1;
 }
 
 
 /* Topic Buttons */
-.topic {
+#search-container .topic {
     position: relative;
 }
-.topic img {
+#search-container .topic img {
     position: absolute;
 }
-.topic .overlay {
+#search-container .topic .overlay {
     position: absolute;
     width: 100px;
     height: 100px;
@@ -114,7 +114,7 @@ ul ul ul {
 }
 
 /* State */
-li.disabled div.topic {
+#search-container li.disabled div.topic {
     /* handle this somehow */
 }
 
