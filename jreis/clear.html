@@ -16,27 +16,27 @@
             <li id="help"><i class="fa fa-question fa-2x"></i></li>
             <li id="h2" class="disabled">
                 <div class="topic"
-                     ng-click="clearSelection('handshape1')"
-                     ng-mouseenter="showOverlay('handshape1')"
-                     ng-mouseleave="hideOverlay('handshape1')"
+                     ng-click="clearSelection('handshape2')"
+                     ng-mouseenter="showOverlay('handshape2')"
+                     ng-mouseleave="hideOverlay('handshape2')"
                         >
-                    <img ng-src="{{imageToDisplay('handshape1')}}"
-                         ng-class="{behind: isShowingOverlay('handshape1')}"
+                    <img ng-src="{{imageToDisplay('handshape2')}}"
+                         ng-class="{behind: isShowingOverlay('handshape2')}"
                          width="100" height="100"
                             />
-                    <div class="overlay" ng-show="isShowingOverlay('handshape1')">
+                    <div class="overlay" ng-show="isShowingOverlay('handshape2')">
                         <i class="fa fa-times"></i>
                     </div>
                 </div>
                 <ul>
                     <li ng-repeat="glyph in handshapeGlyphs"
-                        ng-mouseenter="setPreviewIcon('handshape1',$index)"
-                        ng-mouseleave="setPreviewIcon('handshape1',-1)"
+                        ng-mouseenter="setPreviewIcon('handshape2',$index)"
+                        ng-mouseleave="setPreviewIcon('handshape2',-1)"
                             >
                         <img ng-src="{{glyph.path}}" width="100" height="100"/>
                         <ul>
                             <li ng-repeat="handshape in handshapesForGlyphId(glyph.id)"
-                                ng-click="setPreviewIcon('handshape1',$index,1)"
+                                ng-click="setPreviewIcon('handshape2',$index,1)"
                                 >
                                 <img ng-src="{{handshape.path}}" width="100" height="100"/>
                             </li>
@@ -46,23 +46,23 @@
             </li>
             <li id="h1" class="clickable">
                 <div class="topic"
-                     ng-click="clearSelection('handshape2')"
-                     ng-mouseenter="showOverlay('handshape2')"
-                     ng-mouseleave="hideOverlay('handshape2')"
+                     ng-click="clearSelection('handshape1')"
+                     ng-mouseenter="showOverlay('handshape1')"
+                     ng-mouseleave="hideOverlay('handshape1')"
                      >
-                    <img ng-src="{{imageToDisplay('handshape2')}}"
-                         ng-class="{behind: isShowingOverlay('handshape2')}"
+                    <img ng-src="{{imageToDisplay('handshape1')}}"
+                         ng-class="{behind: isShowingOverlay('handshape1')}"
                          width="100" height="100"
                          />
-                    <div class="overlay" ng-show="isShowingOverlay('handshape2')">
+                    <div class="overlay" ng-show="isShowingOverlay('handshape1')">
                         <i class="fa fa-times"></i>
                     </div>
                 </div>
                 <ul>
                     <li ng-repeat="glyph in handshapes"
-                        ng-mouseenter="setPreviewIcon('handshape2',$index)"
-                        ng-mouseleave="setPreviewIcon('handshape2',-1)"
-                        ng-click="setPreviewIcon('handshape2',$index,1)"
+                        ng-mouseenter="setPreviewIcon('handshape1',$index)"
+                        ng-mouseleave="setPreviewIcon('handshape1',-1)"
+                        ng-click="setPreviewIcon('handshape1',$index,1)"
                         >
                         <img ng-src="{{glyph.path}}" width="100" height="100"/>
                         <ul>

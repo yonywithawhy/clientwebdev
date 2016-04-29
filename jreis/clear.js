@@ -15,12 +15,13 @@
         $scope.locations  = ParametersAPI.locations;
 
         $scope.handshapesForGlyphId = function(id) {
-            var idAsNumber = id * 1; // convert String to Number
+            var idAsNumber = 1 * id; // convert Any to Number
             var shapes = [];
             if (!isNaN(idAsNumber) && idAsNumber >= 0 && idAsNumber < $scope.handshapeGlyphs.length) {
                 for (var i in $scope.handshapes){
-                    if ($scope.handshapes[i].hasOwnProperty("glyph") && $scope.handshapes[i].glyph === id) {
-                        shapes.push($scope.handshapes[i]);
+                    var hand = $scope.handshapes[i];
+                    if (hand.hasOwnProperty("glyph") && hand.glyph === idAsNumber) {
+                        shapes.push(hand);
                     }
                 }
             }
