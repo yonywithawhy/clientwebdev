@@ -14,7 +14,7 @@
     <div id="search-container" class="container" ng-cloak>
         <ul>
             <li id="help"><i class="fa fa-question fa-2x"></i></li>
-            <li id="h2" class="disabled">
+            <li id="h2" ng-class="{hidden: hideHandshape2() }">
                 <div class="topic"
                      ng-click="clearSelection('handshape2')"
                      ng-mouseenter="showOverlay('handshape2')"
@@ -159,10 +159,13 @@
         <p>Selection: {{iconSelected}}</p>
         <h4>Things left to do:</h4>
             <ol>
-                <li>Get handshape search path for glyph -> handshape to work</li>
+                <li>Get handshape search path for glyph -&gt; handshape to work</li>
                 <li>Only show handshape/movement 2 once 1 is selected</li>
                 <li>Get appropriate videos/images for movement and location</li>
                 <li>Wire up search result to video object to show actual result</li>
+                <li>When picking a handshape, one will see the 8 symbols.
+                    Hovering over one will open a row of handshapes, each with a glyph in the bottom RH corner.
+                    Most importantly, when you select the handshape, the icon shown in the selection window is the abstract symbol</li>
             </ol>
     </div>
 </body>

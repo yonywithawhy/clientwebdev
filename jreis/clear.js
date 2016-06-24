@@ -48,13 +48,16 @@
         $scope.imageToDisplay = function(parameter) {
             var imagePath = "";
             if(typeof parameter !== "undefined") {
-                if ( !isObjectEmpty($scope.iconOnDisplay[parameter]) && $scope.iconOnDisplay[parameter] ){
+                if ( !$scope.isObjectEmpty($scope.iconOnDisplay[parameter]) && $scope.iconOnDisplay[parameter] ){
                     imagePath = $scope.iconSelected[parameter].path; //iconOnDisplay
                 } else {
                     imagePath = $scope.preview[parameter]; // and what if that doesn't exist?
                 }
                 return imagePath;
             }
+        };
+        $scope.hideHandshape2 = function() {
+            return $scope.isObjectEmpty($scope.iconSelected['handshape1']);
         };
 
         /* Mutator Functions */
@@ -128,17 +131,17 @@
 
         $scope.showOverlay = function(parameter) {
             // If we haven't selected anything then never show the overlay
-            $scope.showingOverlay[parameter] = isObjectEmpty($scope.iconOnDisplay[parameter]) ? false : true;
+            $scope.showingOverlay[parameter] = $scope.isObjectEmpty($scope.iconOnDisplay[parameter]) ? false : true;
         };
 
         /* Utility Functions */
-        function isObjectEmpty(obj) {
-            if(typeof isObjectEmpty === "undefined") {
+        $scope.isObjectEmpty = function(obj) {
+            if(typeof obj === "undefined") {
                 return true;
             } else {
-                return JSON.stringify(obj) === JSON.stringify({});
+                return ( JSON.stringify(obj) === JSON.stringify({}) || JSON.stringify(obj) === JSON.stringify([]) );
             }
-        }
+        };
     }];
 
     angular.module("Clear").controller("SearchCtrl",SearchControl);

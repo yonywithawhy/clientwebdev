@@ -113,14 +113,9 @@
     top: 5px;
 }
 
-/* State */
-#search-container li.disabled div.topic {
-    /* handle this somehow */
-}
-
 /* Utility */
 .hidden {
-    display:none;
+    display:none !important;
 }
 .disabled {
     /* color gray */
